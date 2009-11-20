@@ -12,7 +12,7 @@
  *
  * Copyright (c) 2009, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  */
-var LiquidMetal = function() {
+var LiquidMetal = (function() {
   var SCORE_NO_MATCH = 0.0;
   var SCORE_MATCH = 1.0;
   var SCORE_TRAILING = 0.8;
@@ -91,4 +91,4 @@ var LiquidMetal = function() {
     for (var i = from; i < to; i++) { array[i] = value; }
     return array;
   }
-}();
+})();
