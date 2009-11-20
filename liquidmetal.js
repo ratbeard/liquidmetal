@@ -27,15 +27,13 @@ var LiquidMetal = function() {
 
       var scores = this.buildScoreArray(string, abbreviation);
 
-      // was a complete miss:
+      // miss, score is 0
       if ( scores === false )  return 0;
-        
-      var sum = 0.0;
-      for (var i in scores) {
-        sum += scores[i];
-      }
 
-      return (sum / scores.length);
+      // hit, average scores:
+      for (var i=0, sum=0, length=scores.length; i < length; i++)
+        sum += scores[i];
+      return sum / length;
     },
 
     buildScoreArray: function(string, abbreviation) {
