@@ -42,9 +42,12 @@ var LiquidMetal = function() {
 
       var lastIndex = -1;
       var started = false;
-      for (var i in chars) {
-        var c = chars[i];
-        var index = lower.indexOf(c, lastIndex+1);
+      
+      var c, index, trailingScore;
+      
+      for (var i=0, length=chars.length; i<length; i++) { 
+        c = chars[i];
+        index = lower.indexOf(c, lastIndex+1);
         if (index < 0) return fillArray(scores, SCORE_NO_MATCH);
         if (index == 0) started = true;
 
@@ -63,7 +66,7 @@ var LiquidMetal = function() {
         lastIndex = index;
       }
 
-      var trailingScore = started ? SCORE_TRAILING_BUT_STARTED : SCORE_TRAILING;
+      trailingScore = started ? SCORE_TRAILING_BUT_STARTED : SCORE_TRAILING;
       fillArray(scores, trailingScore, lastIndex+1);
       return scores;
     }
