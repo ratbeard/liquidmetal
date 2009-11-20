@@ -18,7 +18,7 @@ var LiquidMetal = (function() {
   var SCORE_TRAILING = 0.8;
   var SCORE_TRAILING_BUT_STARTED = 0.9;
   var SCORE_BUFFER = 0.85;
-
+  
   return {
     score: function(string, abbreviation) {
       // Short circuits
@@ -50,20 +50,21 @@ var LiquidMetal = (function() {
         c = chars[i];
         index = lower.indexOf(c, lastIndex+1);
         
-        if (index === -1)  return false; // signal no match
+        if (index === -1)  return false; // return no match
         
         if (index === 0) started = true;
-
-        if (isNewWord(string, index)) {
+        
+        // is new word:
+        if ( /\s/.test( string.charAt(index-1) ) ) {
           scores[index-1] = 1;
           fillArray(scores, SCORE_BUFFER, lastIndex+1, index-1);
         }
-        else if (isUpperCase(string, index)) {
+        // is upper:
+        else if ( /[A-Z]/.test( string.charAt(index) ) )
           fillArray(scores, SCORE_BUFFER, lastIndex+1, index);
-        }
-        else {
+
+        else
           fillArray(scores, SCORE_NO_MATCH, lastIndex+1, index);
-        }
 
         scores[index] = SCORE_MATCH;
         lastIndex = index;
@@ -74,16 +75,6 @@ var LiquidMetal = (function() {
       return scores;
     }
   };
-
-  function isUpperCase(string, index) {
-    var c = string.charAt(index);
-    return ("A" <= c && c <= "Z");
-  }
-
-   function isNewWord(string, index) {
-    var c = string.charAt(index-1);
-    return (c == " " || c == "\t");
-  }
   
   function fillArray(array, value, from, to) {
     for (var i = from; i < to; i++) { array[i] = value; }
